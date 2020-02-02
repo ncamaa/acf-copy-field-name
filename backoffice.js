@@ -1,29 +1,56 @@
 //admin js to copy acf field name by click
 jQuery(document).ready(function ($) {
-  if ($('li.li-field-name').length) {
-    $('li.li-field-name')
-      //style cursor to clickable
-      .css('cursor','pointer')
-      .click(function () {
-        let that = $(this);
-        //select field name text and clean spaces
-        let fieldName = that.text()
-        fieldName = fieldName.split(' ').join('');
-        //creat an input field
-        let $temp = $("<input>");
-        $("body").append($temp);
-        //put the field name in the input then select, copy to clipboard & remove it
-        $temp.val(fieldName).select();
-        document.execCommand("copy");
-        $temp.remove();
-        //clicked effect (just for UX, not mandatory)
-        that.css('transition','all .32s ease');
-        that.css('background','green');
-        that.css('color','white');
-        setTimeout(function () {
-          that.css('background','transparent');
-          that.css('color','#444444');
-        },200);
-      });
+  if ($('#acf-field-group-fields ul.acf-tbody li.li-field-name').length ) {
+    makeAcfNameCopyable( $('#acf-field-group-fields ul.acf-tbody li.li-field-name') );
   }
+
+  if ( $('.acf-field .acf-label').length ) {
+    makeAcfNameCopyable( $('.acf-field .acf-label') );
+  }
+
+
 });
+
+function makeAcfNameCopyable(el) {
+  let fieldName = '';
+  let keepText  = '';
+  el.css('cursor','pointer')
+    .css('transition','all .32s ease')
+    .click(function () {
+      let that = jQuery(this);
+      //select field name text and clean spaces
+      if (that.hasClass('acf-label')) {
+        fieldName = that.parents('.acf-field').data('name');
+      } else {
+        fieldName = that.text();
+      }
+      fieldName = fieldName.split(' ').join('');
+      //creat an input field
+      let tempInput = jQuery("<input>");
+      jQuery("body").append(tempInput);
+      //put the field name in the input then select, copy to clipboard & remove it
+      tempInput.val(fieldName).select();
+      document.execCommand("copy");
+      tempInput.remove();
+      //clicked effect (just for UX, not mandatory)
+      that.css('background','green');
+      that.css('color','#ebebeb');
+      if (that.hasClass('acf-label')) {
+        keepText = that.text();
+      } else {
+        keepText = fieldName;
+      }
+      that.text('COPIED!');
+      setTimeout(function () {
+        that.css('background','transparent');
+        that.css('color','#444444');
+        that.text(keepText);
+      },2000);
+    })
+    .mouseenter(function() {
+      jQuery(this).css('background','yellow');
+    })
+    .mouseleave(function() {
+        jQuery(this).css('background','transparent').css('color','#444444');
+    });
+}
