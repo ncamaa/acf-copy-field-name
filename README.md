@@ -7,4 +7,5 @@ Copy ACF field name by click
   <li> Create a folder named 'js' inside your theme's folder </li>
   <li> Put backoffice.js inside the 'js' folder </li>
   <li> On an ACF field group page, just click the field name in order to copy it </li>
+  <li> On an 'Edit Page/Post' page, just click the field label in order to copy the field name </li>
 </ul>
