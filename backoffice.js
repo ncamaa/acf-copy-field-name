@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
   }
 
   if ( $('.acf-field .acf-label').length ) {
-    makeAcfNameCopyable( $('.acf-field .acf-label') );
+    makeAcfNameCopyable( $('.acf-field .acf-label').not('td.acf-label') );
   }
 
 
