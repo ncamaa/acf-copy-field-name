@@ -22,7 +22,7 @@ function makeAcfNameCopyable(el) {
       if (that.hasClass('acf-label')) {
         fieldName = that.parents('.acf-field').data('name');
       } else {
-        fieldName = that.text();
+        fieldName = that.html();
       }
       fieldName = fieldName.split(' ').join('');
       //creat an input field
@@ -36,7 +36,7 @@ function makeAcfNameCopyable(el) {
       that.css('background','green');
       that.css('color','#ebebeb');
       if (that.hasClass('acf-label')) {
-        keepText = that.text();
+        keepText = that.html();
       } else {
         keepText = fieldName;
       }
@@ -44,7 +44,7 @@ function makeAcfNameCopyable(el) {
       setTimeout(function () {
         that.css('background','transparent');
         that.css('color','#444444');
-        that.text(keepText);
+        that.html(keepText);
       },2000);
     })
     .mouseenter(function() {
